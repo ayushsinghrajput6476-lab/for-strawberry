@@ -1,100 +1,213 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Cutie💖</title>
-    <link rel="stylesheet" href="./assets//style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For My Cutie 💖</title>
+  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        #wm-badge {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(255, 192, 203, 0.8);
-            color: #000;
-            padding: 6px 12px;
-            font-size: 14px;
-            font-weight: 600;
-            font-family: "Inter", sans-serif;
-            border-radius: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-            z-index: 9999;
-            user-select: none;
-            transition: all 0.3s ease-in-out;
-        }
-        #wm-badge:hover {
-            background: hotpink;
-            color: white;
-            transform: scale(1.05);
-        }
-    </style>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Watermark Badge (optional aesthetic touch) */
+    #wm-badge {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(255, 192, 203, 0.8);
+      color: #000;
+      padding: 6px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: "Inter", sans-serif;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      z-index: 9999;
+      user-select: none;
+      transition: all 0.3s ease-in-out;
+    }
+    #wm-badge:hover {
+      background: hotpink;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    /* Controls */
+    #controls {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      z-index: 1000;
+    }
+    .control-group {
+      display: flex;
+      gap: 10px;
+    }
+    .control-btn {
+      background: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+    .control-btn.primary {
+      background: hotpink;
+      color: white;
+    }
+    .control-btn:hover {
+      transform: scale(1.05);
+      background: #ffcce0;
+    }
+
+    /* Lyrics Display */
+    #lyrics-container {
+      position: fixed;
+      top: 10%;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      font-size: 1.2em;
+      font-family: 'Dancing Script', cursive;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+
+    /* Letter Modal */
+    .letter-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .letter-content {
+      background: #fff;
+      border-radius: 16px;
+      max-width: 500px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      position: relative;
+      animation: pop 0.4s ease;
+    }
+    @keyframes pop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .close-letter {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+    }
+    .letter-paper h2 {
+      text-align: center;
+      color: hotpink;
+      font-family: 'Dancing Script', cursive;
+    }
+    .letter-body {
+      margin-top: 15px;
+      font-family: 'Inter', sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+    .signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.2em;
+      color: hotpink;
+    }
+  </style>
 </head>
 <body>
-    <!-- Intro Overlay -->
 
-    <div id="container"></div>
-    
-    <!-- Modern Control Panel -->
-    <div id="controls">
-        <div class="control-group">
-            <button id="playMusic" class="control-btn primary">
-                <span class="btn-icon">🎵</span>
-                <span class="btn-text">Play Music</span>
-            </button>
-            <button id="pulsateToggle" class="control-btn">
-                <span class="btn-icon">💓</span>
-                <span class="btn-text">Stop Pulse</span>
-            </button>
-        </div>
-        <div class="control-group">
-            <button id="resetCamera" class="control-btn">
-                <span class="btn-icon">📷</span>
-                <span class="btn-text">Reset View</span>
-            </button>
-            <button id="viewLetter" class="control-btn letter-btn">
-                <span class="btn-icon">💌</span>
-                <span class="btn-text">View Letter</span>
-            </button>
-        </div>
-    </div>
+  <!-- 3D Heart Container -->
+  <div id="container"></div>
 
-    <!-- Lyrics Display -->
-    <div id="lyrics-container">
-        <div id="lyrics" class="lyrics-text"></div>
+  <!-- Controls -->
+  <div id="controls">
+    <div class="control-group">
+      <button id="playMusic" class="control-btn primary">🎵 Play Music</button>
+      <button id="pulsateToggle" class="control-btn">💓 Stop Pulse</button>
     </div>
+    <div class="control-group">
+      <button id="resetCamera" class="control-btn">📷 Reset View</button>
+      <button id="viewLetter" class="control-btn letter-btn">💌 View Letter</button>
+    </div>
+  </div>
 
-    <!-- Letter Modal -->
-    <div id="letterModal" class="letter-modal">
-        <div class="letter-content">
-            <button id="closeLetter" class="close-letter">×</button>
-            <div class="letter-paper">
-                <div class="letter-header">
-                    <h2>💕A Letter for You💕</h2>
-                    <div class="letter-date">With all my love</div>
-                </div>
-                <div class="letter-body">
-                    <p class="greeting">My Dearest,</p>
-                    
-                    <p>Every time I see you, my heart skips a beat just like this pulsing heart on the screen. You are the sweetest person I've ever known, and just like a strawberry, you bring sweetness to every moment of my life.</p>
-                
-                    <p>You are my KuchuPuchu, my darling, my heart, my everything. I hope this brings a smile to your beautiful face and reminds you of how much you mean to me.</p>
-                    
-                    <p class="closing">Forever yours,<br>
-                    <span class="signature">Your Love💖</span></p>
-                </div>
-                <div class="letter-decorations">
-                    <div class="heart-decoration">💕</div>
-                    <div class="heart-decoration">💖</div>
-                    <div class="heart-decoration">💕</div>
-                </div>
-            </div>
+  <!-- Lyrics -->
+  <div id="lyrics-container">
+    <div id="lyrics">You are my reason to smile 💖</div>
+  </div>
+
+  <!-- Letter Modal -->
+  <div id="letterModal" class="letter-modal">
+    <div class="letter-content">
+      <button id="closeLetter" class="close-letter">&times;</button>
+      <div class="letter-paper">
+        <h2>💕 A Letter for You 💕</h2>
+        <div class="letter-body">
+          <p>My Dearest,</p>
+          <p>Every time I see you, my heart skips a beat — just like this pulsing heart on the screen. You are the sweetest person I've ever known, and your presence makes every day brighter.</p>
+          <p>You are my KuchuPuchu, my darling, my heart, my everything. I hope this brings a smile to your beautiful face and reminds you how much you mean to me.</p>
+          <p>Forever yours,</p>
+          <p class="signature">Your Love 💖</p>
         </div>
+      </div>
     </div>
-    
+  </div>
+
+  <!-- Three.js Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+  <script src="./assets/heart.js"></script>
+
+  <!-- Safe Badge (no tampering check) -->
+  <script>
+    const badge = document.createElement("div");
+    badge.id = "wm-badge";
+    badge.innerText = "Made with 💖 by You";
+    document.body.appendChild(badge);
+  </script>
+
+  <!-- Letter Modal Script -->
+  <script>
+    const viewLetter = document.getElementById("viewLetter");
+    const closeLetter = document.getElementById("closeLetter");
+    const letterModal = document.getElementById("letterModal");
+
+    viewLetter.addEventListener("click", () => {
+      letterModal.style.display = "flex";
+    });
+    closeLetter.addEventListener("click", () => {
+      letterModal.style.display = "none";
+    });
+  </script>
+</body>
+</html>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FontLoader.min.js"></script>
